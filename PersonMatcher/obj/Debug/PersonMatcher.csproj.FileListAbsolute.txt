@@ -1,0 +1,8 @@
+C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\PersonMatcher\bin\Debug\PersonMatcher.exe.config
+C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\PersonMatcher\bin\Debug\PersonMatcher.exe
+C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\PersonMatcher\bin\Debug\PersonMatcher.pdb
+C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\PersonMatcher\bin\Debug\MyClasses.dll
+C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\PersonMatcher\bin\Debug\MyClasses.pdb
+C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\PersonMatcher\obj\Debug\PersonMatcher.csprojResolveAssemblyReference.cache
+C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\PersonMatcher\obj\Debug\PersonMatcher.exe
+C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\PersonMatcher\obj\Debug\PersonMatcher.pdb

@@ -1,0 +1,5 @@
+C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\MyClasses\bin\Debug\MyClasses.dll
+C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\MyClasses\bin\Debug\MyClasses.pdb
+C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\MyClasses\obj\Debug\MyClasses.csprojResolveAssemblyReference.cache
+C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\MyClasses\obj\Debug\MyClasses.dll
+C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\MyClasses\obj\Debug\MyClasses.pdb
