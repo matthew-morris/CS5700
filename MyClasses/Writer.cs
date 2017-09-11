@@ -5,7 +5,7 @@ namespace MyClasses
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public abstract void Write(List<Person> list, string filename);
+        public abstract void Write(List<PairsOfPersons> list, string filename);
 
         protected string AppendExtension(string filename, string extension)
         {

@@ -33,7 +33,7 @@ namespace MyClasses
         }
         public void Write()
         {
-            myWriter?.Write(this, MyOutputFile);
+            myWriter?.Write(this.myPairs, MyOutputFile);
         }
 
         public void CreateUnmatchedPairs()

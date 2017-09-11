@@ -5,16 +5,16 @@ namespace MyClasses
 {
     public class FileWriter : Writer
     {
-        public override void Write(List<Person> list, string filename)
+        public override void Write(List<PairsOfPersons> list, string filename)
         {
             filename = AppendExtension(filename, "txt");
             System.IO.File.WriteAllText(filename, "");
-            foreach (Person thing in list)
+            foreach (PairsOfPersons thing in list)
             {
                 using (System.IO.StreamWriter file =
                     new System.IO.StreamWriter(filename, true))
                 {
-                    file.WriteLine(thing.ToString());
+                    file.WriteLine($"{thing.p1.ObjectId}, {thing.p2.ObjectId}");
                 }
 
             }
