@@ -9,7 +9,13 @@ namespace MyClasses
         public Writer myWriter { get; set; }
         public string MyDataFile { get; set; }
         public string MyOutputFile { get; set; }
-        
+        public PairsOfPersonsCollection myPairs { get; set; }
+                
+        public PersonCollection()
+        {
+            myPairs = new PairsOfPersonsCollection();
+        }
+
         public void PrintCollection(string header)
         {
             Console.WriteLine("");
@@ -28,6 +34,17 @@ namespace MyClasses
         public void Write()
         {
             myWriter?.Write(this, MyOutputFile);
+        }
+
+        public void CreateUnmatchedPairs()
+        {
+            for (int x = 0; x < this.Count-1; x++ )
+            {
+                for ( int y = x+1; y < this.Count; y++)
+                {
+                    myPairs.Add(new PairsOfPersons(this[x], this[y]));
+                }
+            }
         }
     }
 }

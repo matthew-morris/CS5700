@@ -6,3 +6,11 @@ C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\PersonMatcher\
 C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\PersonMatcher\obj\Debug\PersonMatcher.csprojResolveAssemblyReference.cache
 C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\PersonMatcher\obj\Debug\PersonMatcher.exe
 C:\Users\Matt\Documents\Visual Studio 2017\Projects\PersonMatcher\PersonMatcher\obj\Debug\PersonMatcher.pdb
+C:\Users\Matt\Documents\School\CS5700\CS5700\PersonMatcher\bin\Debug\PersonMatcher.exe.config
+C:\Users\Matt\Documents\School\CS5700\CS5700\PersonMatcher\obj\Debug\PersonMatcher.exe
+C:\Users\Matt\Documents\School\CS5700\CS5700\PersonMatcher\obj\Debug\PersonMatcher.pdb
+C:\Users\Matt\Documents\School\CS5700\CS5700\PersonMatcher\bin\Debug\PersonMatcher.exe
+C:\Users\Matt\Documents\School\CS5700\CS5700\PersonMatcher\bin\Debug\PersonMatcher.pdb
+C:\Users\Matt\Documents\School\CS5700\CS5700\PersonMatcher\bin\Debug\MyClasses.dll
+C:\Users\Matt\Documents\School\CS5700\CS5700\PersonMatcher\bin\Debug\MyClasses.pdb
+C:\Users\Matt\Documents\School\CS5700\CS5700\PersonMatcher\obj\Debug\PersonMatcher.csprojResolveAssemblyReference.cache

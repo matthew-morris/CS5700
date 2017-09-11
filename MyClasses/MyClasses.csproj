@@ -44,6 +44,9 @@
     <Compile Include="ConsoleWriter.cs" />
     <Compile Include="FileWriter.cs" />
     <Compile Include="JSONReader.cs" />
+    <Compile Include="MatchedPairsOfPersonsCollection.cs" />
+    <Compile Include="PairsOfPersons.cs" />
+    <Compile Include="PairsOfPersonsCollection.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="PersonCollection.cs" />
     <Compile Include="Reader.cs" />

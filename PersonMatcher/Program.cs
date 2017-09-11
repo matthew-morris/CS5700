@@ -1,13 +1,12 @@
 ﻿using System;
 
 using MyClasses;
+using System.IO;
 
 namespace PersonMatcher
 {
     public class Program
     {
-        private const string DefaultDataFilename = "../../SampleData";
-
         private static readonly Reader[] Readers = new Reader[]
                 {
                             new JSONReader() { Name = "JSON", Description  = "JavaScript Object Notation"},
@@ -40,29 +39,40 @@ namespace PersonMatcher
                 if (string.IsNullOrWhiteSpace(outputFileName))
                     return;
             }
-            
 
             // Collect the data from test cases
             PersonCollection data1 = new PersonCollection() { myReader = reader, myWriter = writer, MyDataFile = dataFileName, MyOutputFile = outputFileName };
-            data1.Read();
+            try
+            {
+                data1.Read();
+            }
+            catch
+            {
+                Console.WriteLine("Error: Input file not found");
+                EndProgram();
+                return;
+            }
+
+            data1.CreateUnmatchedPairs();
+
+            //Run algorithm on unmatched pairs and create matched pairs
+
             data1.Write();
 
-            Console.WriteLine("Type ENTER to exit");
-            Console.WriteLine("");
-            Console.ReadLine();
+            EndProgram();
+            return;
         }
 
         private static string GetOutputFilenameFromUser()
         {
             string result = null;
-            Console.Write($"Enter output file name or EXIT (default={DefaultDataFilename})? ");
+            Console.Write($"Enter output file name or EXIT? ");
             string response = Console.ReadLine()?.Trim();
-
-            if (string.IsNullOrWhiteSpace(response))
-                response = DefaultDataFilename;
 
             if (response != "EXIT")
                 result = response;
+
+            Console.WriteLine();
 
             return result;
         }
@@ -75,7 +85,7 @@ namespace PersonMatcher
                 Console.WriteLine("Output File Types:");
                 foreach (Writer thing in Writers)
                     Console.WriteLine($"\t{thing.Name.PadRight(10)}{thing.Description}");
-                Console.Write("Specify which format type you want to write to? \n f none are chosen, results will be written to the Console. ");
+                Console.Write("Specify which format type you want to write to? \n If none are chosen, results will be written to the Console. ");
                 string response = Console.ReadLine()?.Trim().ToUpper();
 
                 if (response == "EXIT")
@@ -95,6 +105,7 @@ namespace PersonMatcher
                     }
                 }
             }
+            Console.WriteLine();
 
             return result;
         }
@@ -122,6 +133,7 @@ namespace PersonMatcher
                     }
                 }
             }
+            Console.WriteLine();
 
             return result;
         }
@@ -129,16 +141,22 @@ namespace PersonMatcher
         private static string GetFilenameFromUser()
         {
             string result = null;
-            Console.Write($"Enter data file name or EXIT (default={DefaultDataFilename})? ");
+            Console.Write($"Enter data file name or EXIT? ");
             string response = Console.ReadLine()?.Trim();
-
-            if (string.IsNullOrWhiteSpace(response))
-                response = DefaultDataFilename;
 
             if (response != "EXIT")
                 result = response;
 
+            Console.WriteLine();
             return result;
+        }
+
+        private static void EndProgram()
+        {
+            Console.WriteLine("Type ENTER to exit");
+            Console.WriteLine("");
+            Console.ReadLine();
+            return;
         }
     }
 }
