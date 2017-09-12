@@ -10,10 +10,13 @@ namespace MyClasses
         public string MyDataFile { get; set; }
         public string MyOutputFile { get; set; }
         public PairsOfPersonsCollection myPairs { get; set; }
+        public Algorithm myAlg { get; set; }
+        public PairsOfPersonsCollection myMatchedPairs { get; set; }
                 
         public PersonCollection()
         {
             myPairs = new PairsOfPersonsCollection();
+            myMatchedPairs = new PairsOfPersonsCollection();
         }
 
         public void PrintCollection(string header)
@@ -33,7 +36,7 @@ namespace MyClasses
         }
         public void Write()
         {
-            myWriter?.Write(this.myPairs, MyOutputFile);
+            myWriter?.Write(this.myMatchedPairs, MyOutputFile);
         }
 
         public void CreateUnmatchedPairs()
@@ -45,6 +48,11 @@ namespace MyClasses
                     myPairs.Add(new PairsOfPersons(this[x], this[y]));
                 }
             }
+        }
+
+        public void RunTest()
+        {
+            myMatchedPairs = myPairs.runTest(myAlg);
         }
     }
 }

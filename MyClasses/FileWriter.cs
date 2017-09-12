@@ -12,7 +12,7 @@ namespace MyClasses
             foreach (PairsOfPersons thing in list)
             {
                 using (System.IO.StreamWriter file =
-                    new System.IO.StreamWriter(filename, true))
+                    new System.IO.StreamWriter($"../../{filename}", true))
                 {
                     file.WriteLine($"{thing.p1.ObjectId}, {thing.p2.ObjectId}");
                 }

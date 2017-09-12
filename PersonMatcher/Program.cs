@@ -19,8 +19,16 @@ namespace PersonMatcher
                             new FileWriter() { Name = "TXT", Description  = "Text File"}
                 };
 
+        private static readonly Algorithm[] Algorithms = new Algorithm[]
+                {
+                            new Algorithm_NameTest() { Name = "1", Description = "Compare Persons by full name" },
+                            new Algorithm_MotherTest() { Name = "2", Description = "Compare Persons by mother and birth information" },
+                            new Algorithm_Identifiers() { Name = "3", Description = "Compare Persons by Social Security Number, State File Number, and Newborn Screening Number" }
+                };
+
         static void Main(string[] args)
         {
+            // Collect the data from test cases
             Reader reader = GetFileFormatFromUser();
             if (reader == null)
                 return;
@@ -29,6 +37,19 @@ namespace PersonMatcher
             if (string.IsNullOrWhiteSpace(dataFileName))
                 return;
 
+            PersonCollection data = new PersonCollection() { myReader = reader, MyDataFile = dataFileName};
+            try
+            {
+                data.Read();
+            }
+            catch
+            {
+                Console.WriteLine("Error: Input file not found");
+                EndProgram();
+                return;
+            }
+
+            // Collect output file information
             Writer writer = GetOutputFileFormatFromUser();
             if (writer == null)
                 return;
@@ -40,24 +61,17 @@ namespace PersonMatcher
                     return;
             }
 
-            // Collect the data from test cases
-            PersonCollection data1 = new PersonCollection() { myReader = reader, myWriter = writer, MyDataFile = dataFileName, MyOutputFile = outputFileName };
-            try
-            {
-                data1.Read();
-            }
-            catch
-            {
-                Console.WriteLine("Error: Input file not found");
-                EndProgram();
-                return;
-            }
-
-            data1.CreateUnmatchedPairs();
+            data.myWriter = writer;
+            data.MyOutputFile = outputFileName;
 
             //Run algorithm on unmatched pairs and create matched pairs
+            data.CreateUnmatchedPairs();
+            data.myAlg = GetAlgorithmFromUser();
 
-            data1.Write();
+            data.RunTest();
+
+            data.Write();
+            Console.WriteLine("");
 
             EndProgram();
             return;
@@ -85,7 +99,7 @@ namespace PersonMatcher
                 Console.WriteLine("Output File Types:");
                 foreach (Writer thing in Writers)
                     Console.WriteLine($"\t{thing.Name.PadRight(10)}{thing.Description}");
-                Console.Write("Specify which format type you want to write to? \n If none are chosen, results will be written to the Console. ");
+                Console.Write("Specify which format type you want to write to? \nIf none are chosen, results will be written to the Console. ");
                 string response = Console.ReadLine()?.Trim().ToUpper();
 
                 if (response == "EXIT")
@@ -125,6 +139,34 @@ namespace PersonMatcher
                     return null;
 
                 foreach (Reader thing in Readers)
+                {
+                    if (response == thing.Name)
+                    {
+                        result = thing;
+                        break;
+                    }
+                }
+            }
+            Console.WriteLine();
+
+            return result;
+        }
+
+        private static Algorithm GetAlgorithmFromUser()
+        {
+            Algorithm result = null;
+            while (result == null)
+            {
+                Console.WriteLine("Algorithm options:");
+                foreach (Algorithm thing in Algorithms)
+                    Console.WriteLine($"\t{thing.Name.PadRight(10)}{thing.Description}");
+                Console.Write("Specify which algorithm you want to use to match or EXIT? ");
+                string response = Console.ReadLine()?.Trim().ToUpper();
+
+                if (response == "EXIT")
+                    return null;
+
+                foreach (Algorithm thing in Algorithms)
                 {
                     if (response == thing.Name)
                     {
