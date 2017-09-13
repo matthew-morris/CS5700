@@ -4,7 +4,9 @@ namespace MyClasses
 {
     public class PairsOfPersonsCollection : List<PairsOfPersons>
     {
-        public PairsOfPersonsCollection runTest(Algorithm myAlg)
+        public Algorithm myAlg { get; set; }
+
+        public PairsOfPersonsCollection runTest()
         {
             PairsOfPersonsCollection myList = new PairsOfPersonsCollection();
             foreach (PairsOfPersons thing in this)

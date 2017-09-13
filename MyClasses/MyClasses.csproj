@@ -52,6 +52,7 @@
     <Compile Include="PairsOfPersonsCollection.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="PersonCollection.cs" />
+    <Compile Include="PersonMatcher.cs" />
     <Compile Include="Reader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Writer.cs" />

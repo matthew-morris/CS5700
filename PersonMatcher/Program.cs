@@ -1,7 +1,6 @@
 ﻿using System;
 
 using MyClasses;
-using System.IO;
 
 namespace PersonMatcher
 {
@@ -37,10 +36,10 @@ namespace PersonMatcher
             if (string.IsNullOrWhiteSpace(dataFileName))
                 return;
 
-            PersonCollection data = new PersonCollection() { myReader = reader, MyDataFile = dataFileName};
+            PersonCollection collection = new PersonCollection() { myReader = reader, MyDataFile = dataFileName};
             try
             {
-                data.Read();
+                collection.Read();
             }
             catch
             {
@@ -61,16 +60,15 @@ namespace PersonMatcher
                     return;
             }
 
-            data.myWriter = writer;
-            data.MyOutputFile = outputFileName;
+            PersonMatch personMatcher = new PersonMatch() { myWriter = writer, MyOutputFile = outputFileName, myPersonCollection = collection } ;
 
             //Run algorithm on unmatched pairs and create matched pairs
-            data.CreateUnmatchedPairs();
-            data.myAlg = GetAlgorithmFromUser();
+            personMatcher.CreateUnmatchedPairs();
+            personMatcher.myPairs.myAlg = GetAlgorithmFromUser();
 
-            data.RunTest();
+            personMatcher.RunTest();
 
-            data.Write();
+            personMatcher.Write();
             Console.WriteLine("");
 
             EndProgram();
