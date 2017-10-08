@@ -13,10 +13,39 @@ namespace AppLayer
     {
         public void ProcessUpdate(AthleteUpdate updateMessage)
         {
-            AthleteRaceStatus temp = new AthleteRaceStatus(updateMessage.UpdateType, updateMessage.BibNumber, updateMessage.Timestamp);
-           // temp.printAthleteRaceStatus();
+            AthleteRaceStatus update;
+            string[] updateList = updateMessage.ToString().Split(',');
 
-            Console.WriteLine(updateMessage.ToString());
+            if (updateMessage.GetType().ToString() == "RaceData.Messages.RegistrationUpdate")
+            {
+                update = new RegistrationUpdate(updateList[0], updateList[1], updateList[2], updateList[3], updateList[4], updateList[5], updateList[6]);
+                update.Print();
+            }
+            else if (updateMessage.GetType().ToString() == "RaceData.Messages.DidNotStartUpdate")
+            {
+                update = new DidNotStartUpdate(updateList[0], updateList[1], updateList[2]);
+                update.Print();
+            }
+            else if (updateMessage.GetType().ToString() == "RaceData.Messages.StartedUpdate")
+            {
+                update = new StartedUpdate(updateList[0], updateList[1], updateList[2], updateList[3]);
+                update.Print();
+            }
+            else if (updateMessage.GetType().ToString() == "RaceData.Messages.LocationUpdate")
+            {
+                update = new LocationUpdate(updateList[0], updateList[1], updateList[2], updateList[3]);
+                update.Print();
+            }
+            else if (updateMessage.GetType().ToString() == "RaceData.Messages.DidNotFinishUpdate")
+            {
+                update = new DidNotFinishUpdate(updateList[0], updateList[1], updateList[2]);
+                update.Print();
+            }
+            else if (updateMessage.GetType().ToString() == "RaceData.Messages.FinishedUpdate")
+            {
+                update = new FinishedUpdate(updateList[0], updateList[1], updateList[2], updateList[3]);
+                update.Print();
+            }
         }
     }
 }

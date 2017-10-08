@@ -15,8 +15,8 @@ namespace MyRaceMonitor
 
         private static readonly string[] Races = new string[]
         {
-            "Century Simulation-01",
-            "Short Race Simulation-01"
+            "1-Century Simulation-01",
+            "2-Short Race Simulation-01"
         };
 
         [STAThread]
@@ -26,6 +26,11 @@ namespace MyRaceMonitor
             SimulatorController controller = new SimulatorController();
             string myRace = getRace();
             controller.Run($"../../../SimulationData/{myRace}.csv");
+
+            Console.WriteLine("Type ENTER to exit");
+            Console.WriteLine("");
+            Console.ReadLine();
+            return;
         }
 
         private static string getRace()
@@ -41,9 +46,9 @@ namespace MyRaceMonitor
 
                 foreach (string thing in Races)
                 {
-                    if (response == thing)
+                    if (response == thing.Substring(2) || response == thing.ElementAt(0).ToString())
                     {
-                        result = thing;
+                        result = thing.Substring(2);
                         break;
                     }
                     else
