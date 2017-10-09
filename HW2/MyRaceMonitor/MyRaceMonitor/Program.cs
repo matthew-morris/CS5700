@@ -24,19 +24,26 @@ namespace MyRaceMonitor
         static void Main()
         {
             SimulatorController controller = new SimulatorController();
-            string myRace = getRace();
-            controller.Run($"../../../SimulationData/{myRace}.csv");
 
-            Console.WriteLine("Type ENTER to exit");
-            Console.WriteLine("");
-            Console.ReadLine();
+            /*
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new CourseSetup());
+            */
+          
+            Course myCourse = getCourse();
+            
+            myCourse.addRace(getRace());
+
+            controller.Run($"../../../SimulationData/{myCourse.Races.ElementAt(0).Title}.csv");
+
             return;
         }
 
-        private static string getRace()
+        private static Race getRace()
         {
-            string result = null;
-            while (result == null)
+            string title = null;
+            while (title == null)
             {
                 Console.WriteLine("Race Types: ");
                 foreach (string thing in Races)
@@ -48,18 +55,51 @@ namespace MyRaceMonitor
                 {
                     if (response == thing.Substring(2) || response == thing.ElementAt(0).ToString())
                     {
-                        result = thing.Substring(2);
+                        title = thing.Substring(2);
                         break;
                     }
                     else
                     {
-                        result = null;
+                        title = null;
                     }
                 }
             }
             Console.WriteLine();
+            DateTime startTime;
+            Console.WriteLine("Specify when you would like the race to start in DateTime format. ");
+            Console.WriteLine("Example: 8/15/2017 6:00:00 AM");
+            Console.WriteLine("If invalid date is entered, it will default to the current date");
+            try
+            {
+                startTime = Convert.ToDateTime(Console.ReadLine());
+            }
+            catch
+            {
+                startTime = DateTime.Now;
+            }
 
-            return result;
+            return new Race(0, title, startTime);
+        }
+        private static Course getCourse()
+        {
+            Console.WriteLine("Specify the course name: ");
+            string courseName = Console.ReadLine();
+            int totalDistance = 0;
+            while ( totalDistance <= 0)
+            {
+                Console.WriteLine("Specify the total distance (int): ");
+                try
+                {
+                    totalDistance = Convert.ToInt32(Console.ReadLine());
+                }
+                catch
+                {
+                    totalDistance = 0;
+                }
+            }
+
+            return new Course(0, courseName, totalDistance);
+
         }
     }
 }

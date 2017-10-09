@@ -53,8 +53,6 @@
     <Compile Include="Observer.cs" />
     <Compile Include="Race.cs" />
     <Compile Include="RegistrationUpdate.cs" />
-    <Compile Include="SimulatorController.cs" />
-    <Compile Include="DataProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartedUpdate.cs" />
     <Compile Include="Subject.cs" />

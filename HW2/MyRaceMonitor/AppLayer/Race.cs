@@ -18,6 +18,12 @@ namespace AppLayer
             Id = _Id;
             Title = _Title;
             StartDateTime = _StartDateTime;
+            Athletes = new List<Athlete>();
+        }
+
+        public void handleRegUpdate(RegistrationUpdate r)
+        {
+            Athletes.Add(new Athlete(r.Status, r.BibNumber, r.FirstName, r.LastName, r.Gender, r.Age));
         }
     }
 }

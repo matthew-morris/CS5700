@@ -9,10 +9,10 @@ namespace AppLayer
 {
     public class RegistrationUpdate : AthleteRaceStatus
     {
-        private string FirstName { get; set; }
-        private string LastName { get; set; }
-        private string Gender { get; set; }
-        private int Age { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Gender { get; set; }
+        public int Age { get; set; }
 
         public RegistrationUpdate(string u, string b, string t, string f, string l, string g, string a) : base(u, b, t)
         {

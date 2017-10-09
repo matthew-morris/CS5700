@@ -2,7 +2,7 @@
 using System.Threading;
 using RaceData;
 
-namespace AppLayer
+namespace MyRaceMonitor
 {
     public class SimulatorController
     {

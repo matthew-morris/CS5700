@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using RaceData;
+using AppLayer;
+
 namespace AppLayer
 {
     public class Athlete : Subject
@@ -14,6 +17,8 @@ namespace AppLayer
         public string LastName;
         public string Gender;
         public int Age;
+        public RaceData.AthleteRaceStatus Status;
+        public double Location;
 
         public void NotifyObservers()
         {
@@ -36,6 +41,16 @@ namespace AppLayer
             {
                 Observers.RemoveAt(i);
             }
+        }
+
+        public Athlete( RaceData.AthleteRaceStatus _status, int _bib, string _first, string _last, string _gender, int _age)
+        {
+            Status = _status;
+            BibNumber = _bib;
+            FirstName = _first;
+            LastName = _last;
+            Gender = _gender;
+            Age = _age;
         }
     }
 }
