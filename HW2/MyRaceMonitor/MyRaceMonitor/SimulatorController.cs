@@ -1,15 +1,16 @@
 ﻿
 using System.Threading;
 using RaceData;
+using AppLayer;
 
 namespace MyRaceMonitor
 {
     public class SimulatorController
     {
         private SimulatedDataSource _simulatedData;
-        public void Run(string inputFile)
+        public void Run(string inputFile, Race race)
         {
-            IAthleteUpdateHandler handler = new DataProcessor();
+            IAthleteUpdateHandler handler = new DataProcessor(race);
             _simulatedData = new SimulatedDataSource()
             {
                 InputFilename = inputFile,

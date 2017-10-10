@@ -19,13 +19,15 @@ namespace AppLayer
         public int Age;
         public RaceData.AthleteRaceStatus Status;
         public double Location;
+        public DateTime startTime;
+        public DateTime finishTime;
 
         public void NotifyObservers()
         {
             for ( int i = 0; i < Observers.Count; i++)
             {
                 Observer observer = (Observer)Observers.ElementAt(i);
-                observer.Update();
+                observer.Update(this);
             }
         }
 
@@ -51,6 +53,7 @@ namespace AppLayer
             LastName = _last;
             Gender = _gender;
             Age = _age;
+            Observers = new List<Observer>();
         }
     }
 }

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Athlete.cs" />
     <Compile Include="AthleteRaceStatus.cs" />
+    <Compile Include="ConsoleObserver.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="DidNotFinishUpdate.cs" />
     <Compile Include="DidNotStartUpdate.cs" />

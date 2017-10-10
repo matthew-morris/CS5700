@@ -8,6 +8,6 @@ namespace AppLayer
 {
     public interface Observer
     {
-        void Update();
+        void Update(Athlete a);
     }
 }

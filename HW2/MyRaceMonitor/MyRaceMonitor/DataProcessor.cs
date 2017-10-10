@@ -13,40 +13,104 @@ namespace MyRaceMonitor
 {
     public class DataProcessor : IAthleteUpdateHandler
     {
+        public Race myRace;
+
+        public DataProcessor(Race r)
+        {
+            myRace = r;
+        }
+
         public void ProcessUpdate(AthleteUpdate updateMessage)
         {
-            AppLayer.AthleteRaceStatus update;
             string[] updateList = updateMessage.ToString().Split(',');
 
             if (updateMessage.GetType().ToString() == "RaceData.Messages.RegistrationUpdate")
             {
-                update = new AppLayer.RegistrationUpdate(updateList[0], updateList[1], updateList[2], updateList[3], updateList[4], updateList[5], updateList[6]);
-                update.Print();
+                AppLayer.RegistrationUpdate update = new AppLayer.RegistrationUpdate(updateList[0], updateList[1], updateList[2], updateList[3], updateList[4], updateList[5], updateList[6]);
+                myRace.Athletes.Add(new Athlete(update.Status, update.BibNumber, update.FirstName, update.LastName, update.Gender, update.Age));
+
+                foreach (Athlete thing in myRace.Athletes)
+                {
+                    if (thing.BibNumber == update.BibNumber)
+                    {
+                        thing.RegisterObserver(new ConsoleObserver());
+                        thing.NotifyObservers();
+                        break;
+                    }
+                }
             }
             else if (updateMessage.GetType().ToString() == "RaceData.Messages.DidNotStartUpdate")
             {
-                update = new AppLayer.DidNotStartUpdate(updateList[0], updateList[1], updateList[2]);
-                update.Print();
+                AppLayer.DidNotStartUpdate update = new AppLayer.DidNotStartUpdate(updateList[0], updateList[1], updateList[2]);
+                foreach (Athlete thing in myRace.Athletes)
+                {
+                    if (thing.BibNumber == update.BibNumber)
+                    {
+                        thing.Status = RaceData.AthleteRaceStatus.DidNotStart;
+
+                        thing.NotifyObservers();
+                        break;
+                    }
+                }
             }
             else if (updateMessage.GetType().ToString() == "RaceData.Messages.StartedUpdate")
             {
-                update = new AppLayer.StartedUpdate(updateList[0], updateList[1], updateList[2], updateList[3]);
-                update.Print();
+                AppLayer.StartedUpdate update = new AppLayer.StartedUpdate(updateList[0], updateList[1], updateList[2], updateList[3]);
+                foreach (Athlete thing in myRace.Athletes)
+                {
+                    if (thing.BibNumber == update.BibNumber)
+                    {
+                        thing.Status = RaceData.AthleteRaceStatus.Started;
+                        thing.startTime = update.OfficialStartTime;
+
+                        thing.NotifyObservers();
+                        break;
+                    }
+                }
             }
             else if (updateMessage.GetType().ToString() == "RaceData.Messages.LocationUpdate")
             {
-                update = new AppLayer.LocationUpdate(updateList[0], updateList[1], updateList[2], updateList[3]);
-                update.Print();
+                AppLayer.LocationUpdate update = new AppLayer.LocationUpdate(updateList[0], updateList[1], updateList[2], updateList[3]);
+                foreach (Athlete thing in myRace.Athletes)
+                {
+                    if (thing.BibNumber == update.BibNumber)
+                    {
+                        thing.Status = RaceData.AthleteRaceStatus.OnCourse;
+                        thing.Location = update.Location;
+
+                        thing.NotifyObservers();
+                        break;
+                    }
+                }
             }
             else if (updateMessage.GetType().ToString() == "RaceData.Messages.DidNotFinishUpdate")
             {
-                update = new AppLayer.DidNotFinishUpdate(updateList[0], updateList[1], updateList[2]);
-                update.Print();
+                AppLayer.DidNotFinishUpdate update = new AppLayer.DidNotFinishUpdate(updateList[0], updateList[1], updateList[2]);
+                foreach (Athlete thing in myRace.Athletes)
+                {
+                    if (thing.BibNumber == update.BibNumber)
+                    {
+                        thing.Status = RaceData.AthleteRaceStatus.DidNotFinish;
+
+                        thing.NotifyObservers();
+                        break;
+                    }
+                }
             }
             else if (updateMessage.GetType().ToString() == "RaceData.Messages.FinishedUpdate")
             {
-                update = new AppLayer.FinishedUpdate(updateList[0], updateList[1], updateList[2], updateList[3]);
-                update.Print();
+                AppLayer.FinishedUpdate update = new AppLayer.FinishedUpdate(updateList[0], updateList[1], updateList[2], updateList[3]);
+                foreach (Athlete thing in myRace.Athletes)
+                {
+                    if (thing.BibNumber == update.BibNumber)
+                    {
+                        thing.Status = RaceData.AthleteRaceStatus.Finished;
+                        thing.finishTime = update.OfficialEndTime;
+
+                        thing.NotifyObservers();
+                        break;
+                    }
+                }
             }
         }
     }

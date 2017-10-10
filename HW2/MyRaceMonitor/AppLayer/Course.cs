@@ -21,6 +21,11 @@ namespace AppLayer
             Races = new List<Race>();
         }
 
+        public Course()
+        {
+            Races = new List<Race>();
+        }
+
         public void addRace(Race r)
         {
             Races.Add(r);
