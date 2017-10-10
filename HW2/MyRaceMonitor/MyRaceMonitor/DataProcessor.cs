@@ -14,10 +14,12 @@ namespace MyRaceMonitor
     public class DataProcessor : IAthleteUpdateHandler
     {
         public Race myRace;
+        public List<Observer> observersToAdd;
 
-        public DataProcessor(Race r)
+        public DataProcessor(Race r, List<Observer> os)
         {
             myRace = r;
+            observersToAdd = os;
         }
 
         public void ProcessUpdate(AthleteUpdate updateMessage)
@@ -33,7 +35,10 @@ namespace MyRaceMonitor
                 {
                     if (thing.BibNumber == update.BibNumber)
                     {
-                        thing.RegisterObserver(new ConsoleObserver());
+                        foreach (Observer item in observersToAdd)
+                        {
+                            thing.RegisterObserver(item);
+                        }
                         thing.NotifyObservers();
                         break;
                     }

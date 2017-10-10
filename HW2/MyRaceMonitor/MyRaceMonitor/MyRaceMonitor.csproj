@@ -57,6 +57,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -75,11 +76,17 @@
       <DependentUpon>CourseSetup.cs</DependentUpon>
     </Compile>
     <Compile Include="DataProcessor.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="ListObserver.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="ListObserver.Designer.cs">
+      <DependentUpon>ListObserver.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ObserverSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ObserverSetup.Designer.cs">
+      <DependentUpon>ObserverSetup.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,8 +100,11 @@
     <EmbeddedResource Include="CourseSetup.resx">
       <DependentUpon>CourseSetup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="ListObserver.resx">
+      <DependentUpon>ListObserver.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObserverSetup.resx">
+      <DependentUpon>ObserverSetup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

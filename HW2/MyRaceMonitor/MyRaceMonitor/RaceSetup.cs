@@ -42,7 +42,7 @@ namespace MyRaceMonitor
                 {
                     DateTime temp = Convert.ToDateTime(textBox1.Text);
                     myC.addRace(new Race(myC.Races.Count, comboBox1.Text, temp));
-                    this.Hide();
+                    this.Close();
                 }
                 catch
                 {

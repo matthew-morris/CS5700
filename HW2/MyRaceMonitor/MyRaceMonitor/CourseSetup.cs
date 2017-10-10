@@ -27,12 +27,17 @@ namespace MyRaceMonitor
             try
             {
                 myC.TotalDistance = Convert.ToDouble(textBox2.Text);
-                this.Hide();
+                this.Close();
             }
             catch
             {
                 label3.Text = "Invalid Distance";
             }
+        }
+
+        private void CourseSetup_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

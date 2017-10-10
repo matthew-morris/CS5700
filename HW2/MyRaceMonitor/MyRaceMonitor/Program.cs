@@ -23,12 +23,14 @@ namespace MyRaceMonitor
 
         static void Main()
         {
+            SimulatorController controller = new SimulatorController();
             Course myCourse = new Course();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
-            //Application.Run(new RaceSetup(myCourse));
+            Application.Run(new CourseSetup(myCourse));
+            Application.Run(new RaceSetup(myCourse));
+            Application.Run(new ObserverSetup(myCourse, controller));
 
             return;
         }
