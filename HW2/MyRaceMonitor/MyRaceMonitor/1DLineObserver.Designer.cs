@@ -32,10 +32,11 @@
             // 
             // _1DLineObserver
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(660, 481);
+            this.ClientSize = new System.Drawing.Size(815, 370);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "_1DLineObserver";
             this.Text = "_1DLineObserver";
             this.Load += new System.EventHandler(this._1DLineObserver_Load);

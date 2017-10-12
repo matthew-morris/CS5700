@@ -26,6 +26,7 @@ namespace MyRaceMonitor
             checkedListBox1.Items.Add("Report to console");
             checkedListBox1.Items.Add("Report athletes in list");
             checkedListBox1.Items.Add("Report athletes on a 1D line");
+            checkedListBox1.Items.Add("Compare 2 athletes");
             observersToAdd = new List<Observer>();
         }
 
@@ -59,8 +60,16 @@ namespace MyRaceMonitor
                     _1DLineObserver my1D = new _1DLineObserver();
                     observersToAdd.Add(my1D);
                    
-                    Thread myThread = new Thread(() => Application.Run(my1D));
-                    myThread.Start();
+                    Thread OneDThread = new Thread(() => Application.Run(my1D));
+                    OneDThread.Start();
+                }
+                else if (Item == "Compare 2 athletes")
+                {
+                    AthleteComparisonObserver myACO = new AthleteComparisonObserver();
+                    observersToAdd.Add(myACO);
+
+                    Thread ACOThread = new Thread(() => Application.Run(myACO));
+                    ACOThread.Start();
                 }
             }
             controller.Run($"../../../SimulationData/{myCourse.Races.ElementAt(0).Title}.csv", myCourse.Races[0], observersToAdd);

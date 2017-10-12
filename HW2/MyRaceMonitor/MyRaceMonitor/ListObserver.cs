@@ -21,25 +21,24 @@ namespace MyRaceMonitor
             InitializeComponent();
             myAthletes = new List<Athlete>();
             dataGridView1.Columns.Add("Status", "Status");
-
-            /*
-            string[] row = new string[] { "1", "0" };
-            dataGridView1.Rows.Add(row);
-            dataGridView1.Rows.Add(row);
-            */
         }
 
         public void Update(Athlete a)
         {
+            this.BeginInvoke(new Action(() => safeUpdate(a)));
+        }
+
+        public void safeUpdate(Athlete a)
+        {
             bool add = true;
             foreach (Athlete thing in myAthletes)
             {
-                if ( thing.BibNumber == a.BibNumber)
+                if (thing.BibNumber == a.BibNumber)
                 {
-                    foreach ( DataGridViewRow row in dataGridView1.Rows )
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
                     {
                         string temp = Convert.ToString(row.Cells["Athlete"].Value);
-                        if ( temp == Convert.ToString(thing.BibNumber))
+                        if (temp == Convert.ToString(thing.BibNumber))
                         {
                             row.Cells["Location"].Value = Convert.ToString(Convert.ToInt32(thing.Location));
                             row.Cells["Status"].Value = Convert.ToString(thing.Status);
