@@ -36,26 +36,29 @@
             // checkedListBox1
             // 
             this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(15, 26);
+            this.checkedListBox1.Location = new System.Drawing.Point(11, 21);
+            this.checkedListBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(212, 174);
+            this.checkedListBox1.Size = new System.Drawing.Size(160, 139);
             this.checkedListBox1.TabIndex = 0;
             this.checkedListBox1.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 6);
+            this.label1.Location = new System.Drawing.Point(9, 5);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(305, 17);
+            this.label1.Size = new System.Drawing.Size(231, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Choose how you would like the data displayed: ";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(335, 48);
+            this.button1.Location = new System.Drawing.Point(251, 39);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(126, 67);
+            this.button1.Size = new System.Drawing.Size(94, 54);
             this.button1.TabIndex = 2;
             this.button1.Text = "Run Simulation";
             this.button1.UseVisualStyleBackColor = true;
@@ -63,15 +66,17 @@
             // 
             // ObserverSetup
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(513, 402);
+            this.ClientSize = new System.Drawing.Size(385, 327);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkedListBox1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ObserverSetup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ObserverSetup";
+            this.Load += new System.EventHandler(this.ObserverSetup_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
