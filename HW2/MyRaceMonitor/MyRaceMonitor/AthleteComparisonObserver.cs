@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -42,7 +43,8 @@ namespace MyRaceMonitor
             if (add)
             {
                 myAthletes.Add(a);
-                this.BeginInvoke(new Action(() => listView1.Items.Add("Athlete " + a.BibNumber)));
+                //this.BeginInvoke(new Action(() => listView1.Items.Add("Athlete " + a.BibNumber)));
+                listView1.Items.Add("Athlete " + a.BibNumber);
             }
         }
 

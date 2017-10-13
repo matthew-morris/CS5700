@@ -93,7 +93,7 @@ namespace MyRaceMonitor
                         break;
                     }
                 }
-                g.FillEllipse(new SolidBrush(temp.p.Color), new Rectangle(scaleNumber(Convert.ToInt32(thing.Location), 500, 16400), 150-20, 40, 40));
+                g.FillEllipse(new SolidBrush(temp.p.Color), new Rectangle(scaleNumber(Convert.ToInt32(thing.Location), 500, 16400), 150 - 20, 40, 40));
             }
         }
 
