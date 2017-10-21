@@ -15,11 +15,13 @@ namespace MyRaceMonitor
     public partial class ListObserver : Form, Observer
     {
         public List<Athlete> myAthletes;
+        public List<string> ColumnsToAdd;
 
         public ListObserver()
         {
             InitializeComponent();
             myAthletes = new List<Athlete>();
+            ColumnsToAdd = new List<string>();
             dataGridView1.Columns.Add("Status", "Status");
         }
 

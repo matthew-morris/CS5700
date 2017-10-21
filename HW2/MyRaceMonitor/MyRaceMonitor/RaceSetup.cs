@@ -54,5 +54,10 @@ namespace MyRaceMonitor
                 label4.Text = "Please select a race";
             }
         }
+
+        private void RaceSetup_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
