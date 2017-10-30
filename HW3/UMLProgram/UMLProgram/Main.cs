@@ -123,36 +123,34 @@ namespace UMLProgram
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            if(mousePressed)
+            if (mousePressed)
             {
                 deltaMouseX = e.X - mouseX;
                 deltaMouseY = e.Y - mouseY;
                 mouseX = e.X;
                 mouseY = e.Y;
-
-                if (mouseX >= isSelected.x && mouseX <= isSelected.x + isSelected.width)
+                if (isSelected != null)
                 {
-                    if (mouseY >= isSelected.y && mouseY <= isSelected.y + isSelected.height)
+                    if (mouseX >= isSelected.x && mouseX <= isSelected.x + isSelected.width)
+                    {
+                        if (mouseY >= isSelected.y && mouseY <= isSelected.y + isSelected.height)
+                        {
+                            isSelectedRec.X += deltaMouseX;
+                            isSelectedRec.Y += deltaMouseY;
+
+                            isSelected.move(graphics, deltaMouseX, deltaMouseY);
+                        }
+                    }
+                    else
                     {
                         if (isSelected != null)
                         {
-
-                            isSelectedRec.X += deltaMouseX;
-                            isSelectedRec.Y += deltaMouseY;
+                            isSelected.resize(graphics, mouseX, mouseY, deltaMouseX, deltaMouseY, ref isSelectedRec);
                         }
+                    }
 
-                        isSelected.move(graphics, deltaMouseX, deltaMouseY);
-                    }
+                    drawObjects();
                 }
-                else
-                {
-                    if (isSelected != null)
-                    {
-                        isSelected.resize(graphics, mouseX, mouseY, deltaMouseX, deltaMouseY, ref isSelectedRec);
-                    }
-                }
-              
-                drawObjects();
             }
         }
 

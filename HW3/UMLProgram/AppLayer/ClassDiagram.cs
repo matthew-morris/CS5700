@@ -11,6 +11,7 @@ namespace AppLayer
     {
         bool[] resizeBoxesSelected;
         int boxSizes = 10;
+        Point line1, line2;
 
         public ClassDiagram(int _x, int _y, int _width, int _height)
         {
@@ -26,6 +27,9 @@ namespace AppLayer
             resizeBoxes[2] = new Rectangle(x + width, y - boxSizes, boxSizes, boxSizes);
             resizeBoxes[3] = new Rectangle(x + width, y + height, boxSizes, boxSizes);
             resizeBoxesSelected = new bool[4] { false, false, false, false };
+
+            line1 = new Point(x, y + (height / 4));
+            line2 = new Point(x + width, y + (height / 4));
         }
 
         public override void draw(Graphics graphics)
@@ -39,6 +43,8 @@ namespace AppLayer
                     graphics.DrawRectangle(Pens.Red, thing);
                 }
             }
+            recalculateLine();
+            graphics.DrawLine(Pens.Black, line1, line2);
         }
 
         public override void move(Graphics graphics, int deltaX, int deltaY)
@@ -50,6 +56,14 @@ namespace AppLayer
                 resizeBoxes[x].X += deltaX;
                 resizeBoxes[x].Y += deltaY;
             }
+        }
+
+        public void recalculateLine()
+        {
+            line1.X = x;
+            line1.Y = y + (height / 4);
+            line2.X = x + width;
+            line2.Y = y + (height / 4);
         }
 
         public override void resize(Graphics graphics, int mouseX, int mouseY, int deltaX, int deltaY, ref Rectangle Select)
