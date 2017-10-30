@@ -1,4 +1,4 @@
-﻿namespace UMLProgram
+﻿namespace BasicUML
 {
     partial class Main
     {
@@ -28,51 +28,62 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ClassDiagram = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // ClassDiagram
-            // 
-            this.ClassDiagram.AccessibleName = "ClassDiagramButton";
-            this.ClassDiagram.Location = new System.Drawing.Point(17, 16);
-            this.ClassDiagram.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.ClassDiagram.Name = "ClassDiagram";
-            this.ClassDiagram.Size = new System.Drawing.Size(129, 28);
-            this.ClassDiagram.TabIndex = 0;
-            this.ClassDiagram.Text = "ClassDiagram";
-            this.ClassDiagram.UseVisualStyleBackColor = true;
-            this.ClassDiagram.Click += new System.EventHandler(this.button1_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(17, 52);
+            this.button1.Location = new System.Drawing.Point(12, 12);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(129, 26);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Aggregation";
+            this.button1.Size = new System.Drawing.Size(107, 78);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Change Background Color";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(13, 106);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(106, 80);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Change Foreground Color";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F);
+            this.label1.Location = new System.Drawing.Point(428, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(158, 76);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Title";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(960, 639);
+            this.ClientSize = new System.Drawing.Size(1222, 773);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.ClassDiagram);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Main";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Main_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button ClassDiagram;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label1;
     }
 }
 

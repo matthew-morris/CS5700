@@ -17,7 +17,9 @@ namespace UMLProgram
         private int mouseX, mouseY, deltaMouseX, deltaMouseY;
         bool mousePressed;
         AppLayer.Object isSelected;
+        AppLayer.Relationship isSelectedRel;
         Rectangle isSelectedRec;
+        Pen SelectedRecPen;
 
         private List<AppLayer.Object> myObjects;
 
@@ -26,6 +28,11 @@ namespace UMLProgram
             InitializeComponent();
             myObjects = new List<AppLayer.Object>();
             graphics = this.CreateGraphics();
+            graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            SelectedRecPen = new Pen(Color.Black);
+            SelectedRecPen.Width = 1.0F;
+            SelectedRecPen.DashCap = System.Drawing.Drawing2D.DashCap.Round;
+            SelectedRecPen.DashPattern = new float[] { 2.0F, 1.0F };
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -47,7 +54,7 @@ namespace UMLProgram
             {
                 thing.draw(this.graphics);
             }
-            graphics.DrawRectangle(Pens.Black, isSelectedRec);
+            graphics.DrawRectangle(SelectedRecPen, isSelectedRec);
         }
 
         protected override void OnClick(EventArgs e)
@@ -58,6 +65,7 @@ namespace UMLProgram
             mouseX = relativePoint.X;
             mouseY = relativePoint.Y;
 
+            // checks to see if click happened on an object
             foreach (AppLayer.Object thing in myObjects)
             {
                 if (mouseX >= thing.x && mouseX <= (thing.x + thing.width))
@@ -65,18 +73,35 @@ namespace UMLProgram
                     if (mouseY >= thing.y && mouseY <= (thing.y + thing.height))
                     {
                         isSelected = thing;
+                        isSelected.isSelected = true;
+                        if (isSelected is Relationship)
+                        {
+                            isSelectedRel = (Relationship)thing;
+                            isSelectedRel.isSelected = true;
+                        }
                         break;
                     }
                     else
                     {
-                        isSelected = null;
+                        if (isSelected != null)
+                        {
+                            isSelected.isSelected = false;
+                            isSelected = null;
+                        }
                     }
                 }
                 else
                 {
-                    isSelected = null;
+                    if (isSelected != null)
+                    {
+                        isSelected.isSelected = false;
+                        isSelected = null;
+                    }
                 }
             }
+
+            // checks if click happened on resize boxes
+            
 
             setIsSelectedRec();
             drawObjects();
@@ -84,6 +109,16 @@ namespace UMLProgram
         protected override void OnMouseDown(MouseEventArgs e)
         {
             mousePressed = true;
+            if (isSelected != null)
+            {
+                isSelected.testIfResizesBoxesSelected(e.X, e.Y);
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            myObjects.Add(new Aggregation(new Point(this.Width / 2, this.Height / 2), new Point(this.Width / 2 + 50, this.Height / 2 + 20)));
+            drawObjects();
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -95,16 +130,28 @@ namespace UMLProgram
                 mouseX = e.X;
                 mouseY = e.Y;
 
-                if (isSelected != null)
+                if (mouseX >= isSelected.x && mouseX <= isSelected.x + isSelected.width)
                 {
-                    isSelectedRec.X += deltaMouseX;
-                    isSelectedRec.Y += deltaMouseY;
-                    isSelected.x += deltaMouseX;
-                    isSelected.y += deltaMouseY;
+                    if (mouseY >= isSelected.y && mouseY <= isSelected.y + isSelected.height)
+                    {
+                        if (isSelected != null)
+                        {
+
+                            isSelectedRec.X += deltaMouseX;
+                            isSelectedRec.Y += deltaMouseY;
+                        }
+
+                        isSelected.move(graphics, deltaMouseX, deltaMouseY);
+                    }
                 }
-
-                Console.WriteLine(deltaMouseX + " " + deltaMouseY);
-
+                else
+                {
+                    if (isSelected != null)
+                    {
+                        isSelected.resize(graphics, mouseX, mouseY, deltaMouseX, deltaMouseY, ref isSelectedRec);
+                    }
+                }
+              
                 drawObjects();
             }
         }
