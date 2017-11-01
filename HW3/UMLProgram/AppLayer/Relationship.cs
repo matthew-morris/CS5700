@@ -9,7 +9,6 @@ namespace AppLayer
 {
     public abstract class Relationship : Object
     {
-        public ClassDiagram class1, class2;
         public Point startPoint, endPoint;
         bool[] resizeBoxesSelected;
         int boxSizes = 10;
