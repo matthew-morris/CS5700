@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace AppLayer
 {
-    public class Aggregation : Relationship
+    public class Composition : Relationship
     {
         Point trianglePoint1, trianglePoint2, tempPoint2;
+        Brush myBrush;
 
-        public Aggregation(Point _startPoint, Point _endPoint, bool _isDotted) : base(_startPoint, _endPoint, _isDotted)
+        public Composition(Point _startPoint, Point _endPoint, bool _isDotted) : base(_startPoint, _endPoint, _isDotted)
         {
             trianglePoint1 = new Point();
             trianglePoint2 = new Point();
             tempPoint2 = new Point();
             recalculateTriangle();
+            myBrush = new SolidBrush(Color.Black);
         }
 
         public override void draw(Graphics graphics)
@@ -28,7 +30,7 @@ namespace AppLayer
                 endPoint,
                 trianglePoint2
             };
-            graphics.DrawPolygon(Pens.Black, myPoints);
+            graphics.FillPolygon(myBrush, myPoints);
             base.draw(graphics);
         }
 

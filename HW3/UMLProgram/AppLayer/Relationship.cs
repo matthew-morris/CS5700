@@ -9,12 +9,14 @@ namespace AppLayer
 {
     public abstract class Relationship : Object
     {
-        public Point startPoint, endPoint;
+        public Point startPoint, endPoint, tempPoint;
         bool[] resizeBoxesSelected;
-        int boxSizes = 10;
+        int boxSizes = 15;
         Rectangle thisRec;
+        Pen myPen;
+        bool isDotted;
 
-        public Relationship(Point _startPoint, Point _endPoint)
+        public Relationship(Point _startPoint, Point _endPoint, bool _isDotted)
         {
             startPoint = _startPoint;
             endPoint = _endPoint;
@@ -28,7 +30,17 @@ namespace AppLayer
             thisRec.Width = width;
             thisRec.Height = height;
 
+            isDotted = _isDotted;
             isSelected = false;
+
+            myPen = new Pen(Color.Black);
+            myPen.Width = 1.0F;
+            myPen.DashCap = System.Drawing.Drawing2D.DashCap.Round;
+            myPen.DashPattern = new float[] { 4.0F, 2.0F };
+
+            tempPoint = new Point();
+            setTempPoint();
+
             resizeBoxes = new Rectangle[2];
             resizeBoxes[0] = new Rectangle(startPoint.X - boxSizes, startPoint.Y - boxSizes, boxSizes, boxSizes);
             resizeBoxes[1] = new Rectangle(endPoint.X, endPoint.Y, boxSizes, boxSizes);
@@ -37,7 +49,14 @@ namespace AppLayer
 
         public override void draw(Graphics graphics)
         {
-            graphics.DrawLine(Pens.Black, startPoint, endPoint);
+            if (isDotted)
+            {
+                graphics.DrawLine(myPen, startPoint, tempPoint);
+            }
+            else
+            {
+                graphics.DrawLine(Pens.Black, startPoint, tempPoint);
+            }
             if (isSelected)
             {
                 foreach(Rectangle thing in resizeBoxes)
@@ -174,6 +193,12 @@ namespace AppLayer
                 width = startPoint.X - endPoint.X - boxSizes * 2;
                 height = startPoint.Y - endPoint.Y - boxSizes * 2;
             }
+        }
+
+        public void setTempPoint()
+        {
+            tempPoint.X = (int)(double)((endPoint.X - startPoint.X) * .90 + startPoint.X);
+            tempPoint.Y = (int)(double)((endPoint.Y - startPoint.Y) * .90 + startPoint.Y);
         }
     }
 }

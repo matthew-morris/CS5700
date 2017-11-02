@@ -117,7 +117,31 @@ namespace UMLProgram
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            myObjects.Add(new Aggregation(new Point(this.Width / 2, this.Height / 2), new Point(this.Width / 2 + 50, this.Height / 2 + 20)));
+            myObjects.Add(new Generalization(new Point(this.Width / 2, this.Height / 2), new Point(this.Width *3/4, this.Height * 3/4), false));
+            drawObjects();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            myObjects.Add(new Dependency(new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), true));
+            drawObjects();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            myObjects.Add(new BinaryAssocation(new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), false));
+            drawObjects();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            myObjects.Add(new Aggregation(new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), false));
+            drawObjects();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            myObjects.Add(new Composition(new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), false));
             drawObjects();
         }
 

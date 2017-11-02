@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace AppLayer
 {
-    public class Aggregation : Relationship
+    public class Generalization : Relationship
     {
-        Point trianglePoint1, trianglePoint2, tempPoint2;
+        Point trianglePoint1, trianglePoint2;
 
-        public Aggregation(Point _startPoint, Point _endPoint, bool _isDotted) : base(_startPoint, _endPoint, _isDotted)
+    public Generalization(Point _startPoint, Point _endPoint, bool _isDotted) : base(_startPoint, _endPoint, _isDotted)
         {
             trianglePoint1 = new Point();
             trianglePoint2 = new Point();
-            tempPoint2 = new Point();
             recalculateTriangle();
         }
 
@@ -23,10 +22,9 @@ namespace AppLayer
         {
             recalculateTriangle();
             Point[] myPoints = {
-                tempPoint2,
                 trianglePoint1,
-                endPoint,
-                trianglePoint2
+                trianglePoint2,
+                endPoint
             };
             graphics.DrawPolygon(Pens.Black, myPoints);
             base.draw(graphics);
@@ -39,8 +37,6 @@ namespace AppLayer
 
             // find point on the line
             base.setTempPoint();
-            tempPoint2.X = (int)(double)((endPoint.X - startPoint.X) * .80 + startPoint.X);
-            tempPoint2.Y = (int)(double)((endPoint.Y - startPoint.Y) * .80 + startPoint.Y);
 
             //create other 2 points
             int size = 50;
@@ -52,8 +48,7 @@ namespace AppLayer
             dist = Math.Sqrt(dx * dx + dy * dy);
             dx /= dist;
             dy /= dist;
-            if (startPoint.X < endPoint.X && startPoint.Y > endPoint.Y)
-            {
+            if ( startPoint.X < endPoint.X && startPoint.Y > endPoint.Y) {
                 trianglePoint1.X = (int)(double)(tempPoint.X + (size / 2) * dy);
                 trianglePoint1.Y = (int)(double)(tempPoint.Y - (size / 2) * dx);
                 trianglePoint2.X = (int)(double)(tempPoint.X - (size / 2) * dy);
@@ -73,7 +68,6 @@ namespace AppLayer
                 trianglePoint2.X = (int)(double)(tempPoint.X - (size / 2) * dy);
                 trianglePoint2.Y = (int)(double)(tempPoint.Y + (size / 2) * dy);
             }
-            tempPoint = tempPoint2;
         }
     }
 }

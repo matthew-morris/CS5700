@@ -10,7 +10,7 @@ namespace AppLayer
     public class ClassDiagram : Object
     {
         bool[] resizeBoxesSelected;
-        int boxSizes = 10;
+        int boxSizes = 15;
         Point line1, line2;
 
         public ClassDiagram(int _x, int _y, int _width, int _height)

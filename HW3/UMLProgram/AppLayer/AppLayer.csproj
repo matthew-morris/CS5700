@@ -42,8 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aggregation.cs" />
+    <Compile Include="BinaryAssocation.cs" />
+    <Compile Include="Generalization.cs" />
     <Compile Include="ClassDiagram.cs" />
     <Compile Include="Command.cs" />
+    <Compile Include="Composition.cs" />
+    <Compile Include="Dependency.cs" />
     <Compile Include="Invoker.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
