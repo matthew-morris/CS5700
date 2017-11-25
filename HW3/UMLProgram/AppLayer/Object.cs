@@ -11,6 +11,7 @@ namespace AppLayer
     {
         public int x, y, width, height;
         public bool isSelected;
+        public string title;
         public Rectangle[] resizeBoxes;
 
         public abstract void draw(Graphics graphics);

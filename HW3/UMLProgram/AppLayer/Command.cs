@@ -6,16 +6,9 @@ using System.Threading.Tasks;
 
 namespace AppLayer
 {
-    public abstract class Command
+    public interface Command
     {
-        protected Receiver receiver;
-
-        // Constructor
-        public Command(Receiver receiver)
-        {
-            this.receiver = receiver;
-        }
-
-        public abstract void Execute();
+        void execute();
+        void undo();
     }
 }

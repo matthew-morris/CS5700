@@ -8,16 +8,5 @@ namespace AppLayer
 {
     public class Invoker
     {
-        private Command command;
-
-        public void SetCommand(Command _command)
-        {
-            command = _command;
-        }
-
-        public void ExecuteCommand()
-        {
-            command.Execute();
-        }
     }
 }

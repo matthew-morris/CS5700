@@ -12,6 +12,7 @@ namespace AppLayer
         bool[] resizeBoxesSelected;
         int boxSizes = 15;
         Point line1, line2;
+        Brush brush;
 
         public ClassDiagram(int _x, int _y, int _width, int _height)
         {
@@ -28,12 +29,15 @@ namespace AppLayer
             resizeBoxes[3] = new Rectangle(x + width, y + height, boxSizes, boxSizes);
             resizeBoxesSelected = new bool[4] { false, false, false, false };
 
+            brush = new SolidBrush(Color.Black);
+            title = "title";
             line1 = new Point(x, y + (height / 4));
             line2 = new Point(x + width, y + (height / 4));
         }
 
         public override void draw(Graphics graphics)
         {
+
             Rectangle rectangle = new Rectangle(x, y, width, height);
             graphics.DrawRectangle(Pens.Black, rectangle);
             if (isSelected)
@@ -45,6 +49,7 @@ namespace AppLayer
             }
             recalculateLine();
             graphics.DrawLine(Pens.Black, line1, line2);
+            graphics.DrawString(title, new Font("Arial", height / 7), brush, new Point(x + 5, y + 5));
         }
 
         public override void move(Graphics graphics, int deltaX, int deltaY)
