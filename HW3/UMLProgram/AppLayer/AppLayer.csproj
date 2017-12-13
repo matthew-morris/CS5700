@@ -51,11 +51,10 @@
     <Compile Include="Command.cs" />
     <Compile Include="Composition.cs" />
     <Compile Include="Dependency.cs" />
-    <Compile Include="Invoker.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Receiver.cs" />
     <Compile Include="Relationship.cs" />
+    <Compile Include="RelationshipFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

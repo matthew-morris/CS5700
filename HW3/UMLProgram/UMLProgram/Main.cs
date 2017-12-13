@@ -20,6 +20,7 @@ namespace UMLProgram
         AppLayer.Relationship isSelectedRel;
         Rectangle isSelectedRec;
         Pen SelectedRecPen;
+        RelationshipFactory myFactory;
 
         public List<Command> myCommands;
 
@@ -28,6 +29,7 @@ namespace UMLProgram
         public Main()
         {
             InitializeComponent();
+            myFactory = new RelationshipFactory();
             myObjects = new List<AppLayer.Object>();
             graphics = this.CreateGraphics();
             graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -123,7 +125,7 @@ namespace UMLProgram
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            myCommands.Add(new CreateObjectCommand(new Generalization(new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), false), ref myObjects));
+            myCommands.Add(new CreateObjectCommand(myFactory.createRelationship("Generalization", new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), false), ref myObjects));
             myCommands[myCommands.Count - 1].execute();
             drawObjects();
             richTextBox1.Text += "Created Generalization\n";
@@ -131,7 +133,7 @@ namespace UMLProgram
 
         private void button2_Click(object sender, EventArgs e)
         {
-            myCommands.Add(new CreateObjectCommand(new Dependency(new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), true), ref myObjects));
+            myCommands.Add(new CreateObjectCommand(myFactory.createRelationship("Dependency", new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), true), ref myObjects));
             myCommands[myCommands.Count - 1].execute();
             //myObjects.Add(new Dependency(new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), true));
             drawObjects();
@@ -140,7 +142,7 @@ namespace UMLProgram
 
         private void button5_Click(object sender, EventArgs e)
         {
-            myCommands.Add(new CreateObjectCommand(new BinaryAssocation(new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), false), ref myObjects));
+            myCommands.Add(new CreateObjectCommand(myFactory.createRelationship("BinaryAssocation", new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), false), ref myObjects));
             myCommands[myCommands.Count - 1].execute();
             //myObjects.Add(new BinaryAssocation(new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), false));
             drawObjects();
@@ -149,7 +151,7 @@ namespace UMLProgram
 
         private void button4_Click(object sender, EventArgs e)
         {
-            myCommands.Add(new CreateObjectCommand(new Aggregation(new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), false), ref myObjects));
+            myCommands.Add(new CreateObjectCommand(myFactory.createRelationship("Aggregation", new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), false), ref myObjects));
             myCommands[myCommands.Count - 1].execute();
             //myObjects.Add(new Aggregation(new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), false));
             drawObjects();
@@ -158,7 +160,7 @@ namespace UMLProgram
 
         private void button3_Click(object sender, EventArgs e)
         {
-            myCommands.Add(new CreateObjectCommand(new Composition(new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), false), ref myObjects));
+            myCommands.Add(new CreateObjectCommand(myFactory.createRelationship("Composition", new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), false), ref myObjects));
             myCommands[myCommands.Count - 1].execute();
             //myObjects.Add(new Composition(new Point(this.Width / 2, this.Height / 2), new Point(this.Width * 3 / 4, this.Height * 3 / 4), false));
             drawObjects();
@@ -227,6 +229,77 @@ namespace UMLProgram
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Color color = this.BackColor;
+
+            if (comboBox1.Text == "Blue")
+            {
+                color = Color.Blue;
+            }
+            else if (comboBox1.Text == "Red")
+            {
+                color = Color.Red;
+            }
+            else if ( comboBox1.Text == "Yellow")
+            {
+                color = Color.Yellow;
+            }
+            else if (comboBox1.Text == "Purple" )
+            {
+                color = Color.Purple;
+            }
+            else if (comboBox1.Text == "Green")
+            {
+                color = Color.Green;
+            }
+            else if (comboBox1.Text == "Orange")
+            {
+                color = Color.Orange;
+            }
+
+            this.BackColor = color;
+            drawObjects();
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Color color = this.ForeColor;
+
+            if (comboBox2.Text == "Blue")
+            {
+                color = Color.Blue;
+            }
+            else if (comboBox2.Text == "Red")
+            {
+                color = Color.Red;
+            }
+            else if (comboBox2.Text == "Yellow")
+            {
+                color = Color.Yellow;
+            }
+            else if (comboBox2.Text == "Purple")
+            {
+                color = Color.Purple;
+            }
+            else if (comboBox2.Text == "Green")
+            {
+                color = Color.Green;
+            }
+            else if (comboBox2.Text == "Orange")
+            {
+                color = Color.Orange;
+            }
+
+            this.ForeColor = color;
+            drawObjects();
         }
 
         protected override void OnMouseDoubleClick(MouseEventArgs e)

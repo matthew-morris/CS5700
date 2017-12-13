@@ -80,5 +80,29 @@ namespace UMLProgram.Tests
                 Assert.Fail();
             }
         }
+
+        [TestMethod()]
+        public void badNameFactoryTest()
+        {
+            RelationshipFactory myFactory = new RelationshipFactory();
+            Relationship relationship = myFactory.createRelationship("BadRelationship", new System.Drawing.Point(0, 0), new System.Drawing.Point(100, 100), false);
+
+            if (relationship != null)
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod()]
+        public void goodNameFactoryTest()
+        {
+            RelationshipFactory myFactory = new RelationshipFactory();
+            Relationship relationship = myFactory.createRelationship("Composition", new System.Drawing.Point(0, 0), new System.Drawing.Point(100, 100), false);
+
+            if (!(relationship is Composition))
+            {
+                Assert.Fail();
+            }
+        }
     }
 }
