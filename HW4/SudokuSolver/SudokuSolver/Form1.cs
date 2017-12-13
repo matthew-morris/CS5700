@@ -14,15 +14,20 @@ namespace SudokuSolver
     public partial class Form1 : Form
     {
         Graphics graphics;
-        int size;
-        char[] characters;
-        int[,] puzzle;
         Font font;
         SolidBrush brush;
         int boxSize;
         const int baseStartX = 25;
         const int baseStartY = 100;
         int offset;
+        Puzzle myPuzzle;
+
+        int onePossSuccesses = 0;
+        int rowColSuccesses = 0;
+        int twinsSuccesses = 0;
+        int zeroPossSuccesses = 0;
+
+        TimeSpan onePossTime, rowColTime, twinsTime, zeroPossTime;
 
         public Form1()
         {
@@ -56,21 +61,24 @@ namespace SudokuSolver
                 //Pass the file path and file name to the StreamReader constructor
                 StreamReader sr = new StreamReader(filename);
                 label3.Text = "";
+                label4.Text = "";
 
                 //Read until you reach end of file
                 if (sr.Peek() >= 0)
                 {
                     //Read the first character
                     firstLine = sr.ReadLine();
-                    this.size = Convert.ToInt32(firstLine);
+                    myPuzzle = new Puzzle(Convert.ToInt32(firstLine));
                 }
-                boxSize = 50 - this.size;
+                boxSize = 50 - myPuzzle.size;
                 offset = boxSize / 6;
-                font = new Font("Arial", 30 - this.size);
-                characters = new char[this.size];
-                puzzle = new int[this.size, this.size];
+                font = new Font("Arial", 30 - myPuzzle.size);
 
-                for (int x = 0; x < this.size; x++ )
+                //characters = new char[this.size];
+                //puzzle = new int[this.size, this.size];
+
+
+                for (int x = 0; x < myPuzzle.size; x++ )
                 {
                     //Read the first character
                     myChar = (char)sr.Read();
@@ -80,13 +88,12 @@ namespace SudokuSolver
                     }
                     else
                     {
-                        characters[x] = myChar;
-                        Console.Write(myChar);
+                        myPuzzle.possibleValues[x] = myChar;
                     }
                 }
-                for (int x = 0; x < this.size; x++)
+                for (int x = 0; x < myPuzzle.size; x++)
                 {
-                    for (int y = 0; y < this.size; y++)
+                    for (int y = 0; y < myPuzzle.size; y++)
                     {
                         //Read the first character
                         myChar = (char)sr.Read();
@@ -100,18 +107,22 @@ namespace SudokuSolver
                         {
                             if (myChar != '-')
                             {
-                                puzzle[x, y] = myChar - '0';
+                                myPuzzle.myCells[x, y].value = myChar - '0';
                             }
                             else
                             {
-                                puzzle[x, y] = -1;
+                                myPuzzle.myCells[x, y].value = -1;
                             }
                         }
                     }
                 }
                 //close the file
                 sr.Close();
-                displayPuzzle();
+                if (myPuzzle.testIfBadPuzzle())
+                {
+                    label4.Text = "Bad Puzzle!";
+                }
+                refreshPuzzle();
             }
             catch
             {
@@ -122,17 +133,17 @@ namespace SudokuSolver
         {
             // clear file
             System.IO.File.WriteAllText(filename, "");
-            for ( int x = 0; x < this.size; x++ )
+            for ( int x = 0; x < myPuzzle.size; x++ )
             {
-                for ( int y = 0; y < this.size; y++ )
+                for ( int y = 0; y < myPuzzle.size; y++ )
                 {
-                    if (puzzle[x, y] < 0)
+                    if (myPuzzle.myCells[x, y].value < 0)
                     {
                         System.IO.File.AppendAllText(filename, "- ");
                     }
                     else
                     {
-                        System.IO.File.AppendAllText(filename, puzzle[x, y].ToString() + " ");
+                        System.IO.File.AppendAllText(filename, myPuzzle.myCells[x, y].value.ToString() + " ");
                     }
                 }
                 System.IO.File.AppendAllText(filename, Environment.NewLine);
@@ -141,25 +152,124 @@ namespace SudokuSolver
         public void displayPuzzle()
         {
             this.graphics.Clear(this.BackColor);
-            for ( int x = 0; x < this.size+1; x++)
+            for ( int x = 0; x < myPuzzle.size+1; x++)
             {
-                graphics.DrawLine(Pens.Black, new Point(baseStartX, x*boxSize+baseStartY), new Point(baseStartX+this.size*boxSize, x*boxSize+baseStartY));
-                graphics.DrawLine(Pens.Black, new Point(baseStartX+x*boxSize, baseStartY), new Point(x*boxSize+baseStartX, baseStartY+this.size*boxSize));
+                graphics.DrawLine(Pens.Black, new Point(baseStartX, x*boxSize+baseStartY), new Point(baseStartX+myPuzzle.size*boxSize, x*boxSize+baseStartY));
+                graphics.DrawLine(Pens.Black, new Point(baseStartX+x*boxSize, baseStartY), new Point(x*boxSize+baseStartX, baseStartY+myPuzzle.size*boxSize));
             }
 
-            for ( int x = 0; x < this.size; x++ )
+            for ( int x = 0; x < myPuzzle.size; x++ )
             {
-                for ( int y = 0; y < this.size; y++ )
+                for ( int y = 0; y < myPuzzle.size; y++ )
                 {
-                    if (puzzle[x, y] >= 0)
+                    if (myPuzzle.myCells[x, y].value >= 0)
                     {
-                        graphics.DrawString(puzzle[x, y].ToString(), font, brush, new Point(baseStartX + offset + y * boxSize, baseStartY + offset + x * boxSize));
+                        graphics.DrawString(myPuzzle.myCells[x, y].value.ToString(), font, brush, new Point(baseStartX + offset + y * boxSize, baseStartY + offset + x * boxSize));
                     }
                 }
             }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            OnePossibility onePoss = new OnePossibility(myPuzzle);
+            RowColPossibility rowColPoss = new RowColPossibility(myPuzzle);
+            ZeroPossibility zeroPoss = new ZeroPossibility(myPuzzle);
+
+            while (true)
+            {
+                Response onePossResponse = onePoss.run();
+                onePossTime += onePossResponse.timeSpent;
+                if (onePossResponse.succeeded)
+                {
+                    onePossSuccesses++;
+                    refreshPuzzle();
+                    richTextBox1.Text += "One possibility in Cell strategy succeeded and took " + onePossResponse.timeSpent + "\n";
+                    if (onePossResponse.done)
+                    {
+                        richTextBox1.Text += "Puzzle complete!\n";
+                        break;
+                    }
+                }
+                else
+                {
+                    richTextBox1.Text += "One possibility in Cell strategy failed and took " + onePossResponse.timeSpent + "\n";
+                }
+
+                Response rowColResponse = rowColPoss.run();
+                rowColTime += rowColResponse.timeSpent;
+                if (rowColResponse.succeeded)
+                {
+                    rowColSuccesses++;
+                    refreshPuzzle();
+                    richTextBox1.Text += "One possibility in row or column strategy succeeded and took " + rowColResponse.timeSpent + "\n";
+                    if (rowColResponse.done)
+                    {
+                        richTextBox1.Text += "Puzzle complete!\n";
+                        break;
+                    }
+                }
+                else
+                {
+                    richTextBox1.Text += "One possibility in row or column strategy failed and took " + rowColResponse.timeSpent + "\n";
+                }
+
+                Response zeroPossResponse = zeroPoss.run();
+                zeroPossTime += zeroPossResponse.timeSpent;
+                if (zeroPossResponse.succeeded)
+                {
+                    zeroPossSuccesses++;
+                    richTextBox1.Text += "Zero possibility succeeded and took " + zeroPossResponse.timeSpent + "\nPuzzle unsolvable!\n";
+                    break;
+                }
+                else
+                {
+                    richTextBox1.Text += "Zero Possibility failed and took " + zeroPossResponse.timeSpent + "\nPuzzle still solvable!\n";
+                }
+
+                if (!onePossResponse.succeeded && !rowColResponse.succeeded)
+                {
+                    richTextBox1.Text += "All methods failed, puzzle unsolvable\n";
+                    break;
+                }
+            }
+        }
+
+        public void refreshPuzzle()
+        {
+            displayPuzzle();
+            myPuzzle.setPossibilities();
+            label11.Text = onePossSuccesses.ToString();
+            label12.Text = onePossTime.ToString();
+            label13.Text = rowColSuccesses.ToString();
+            label14.Text = rowColTime.ToString();
+            label15.Text = twinsSuccesses.ToString();
+            label16.Text = twinsTime.ToString();
+            label17.Text = zeroPossSuccesses.ToString();
+            label18.Text = zeroPossTime.ToString();
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
         {
 
         }
